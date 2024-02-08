@@ -2,13 +2,11 @@ package com.example.freemarker.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 public class Contrato implements Serializable {
 
 	private Empresa empresa;
 	private Cliente cliente;
-	private List<LineaContrato> lineasContrato;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String observaciones;
@@ -28,14 +26,6 @@ public class Contrato implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-
-	public List<LineaContrato> getLineasContrato() {
-		return lineasContrato;
-	}
-
-	public void setLineasContrato(List<LineaContrato> lineasContrato) {
-		this.lineasContrato = lineasContrato;
 	}
 
 	public Date getFechaInicio() {
