@@ -2,6 +2,7 @@ package com.example.freemarker.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,14 +24,16 @@ public class IndexController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 
+		Calendar calendar = Calendar.getInstance();
 		Contrato contrato = new Contrato();
 
 		Empresa empresa = new Empresa(2L, "900500600-3", "Empanadas Colombianas", "Juan Martinez", "(57) 312 000 0101",
 				"/firma-empresa.jpg", "Bogotá", "Calle 12 # 18 - 4", "(603) 234 0011", "www.empanadas.com");
 		contrato.setEmpresa(empresa);
 
+		calendar.set(2023, Calendar.FEBRUARY , 1);
 		Cliente cliente = new Cliente(5L, "Alejandro", "Said", "(601) 123 0000", "calle 55 # 36-4",
-				"alejandro@test.com", "EMPRESA", "Cliente es nuevo", new Date(), "/firma-cliente.jpg");
+				"alejandro@test.com", "EMPRESA", "Cliente es nuevo", calendar.getTime(), "/firma-cliente.jpg");
 		contrato.setCliente(cliente);
 
 		List<LineaFactura> lineasFactura = new ArrayList<LineaFactura>();
@@ -64,8 +67,10 @@ public class IndexController {
 		lineasFactura.add(lc8);
 		lineasFactura.add(lc9);
 		
-		contrato.setFechaFin(new Date());
-		contrato.setFechaInicio(new Date());
+		calendar.set(2024, Calendar.JANUARY , 1);
+		contrato.setFechaFin(calendar.getTime());
+		calendar.set(2024, Calendar.JANUARY , 30);
+		contrato.setFechaInicio(calendar.getTime());
 		contrato.setNumero("EM-700");
 		
 		Factura factura = new Factura(new Date(), "La factura debe estar con los totales buen calculados.",
@@ -76,10 +81,14 @@ public class IndexController {
 		factura.setEmpresa(empresa);
 		
 		List<Pagos> pagos = new ArrayList<Pagos>();
-		Pagos p1 = new Pagos(1L, "CASH", new Date(), new BigDecimal(80000), "SIN-COMPROBANTE", Boolean.TRUE);
-		Pagos p2 = new Pagos(2L, "MASTERCARD", new Date(), new BigDecimal(30000), "3948394", Boolean.FALSE);
-		Pagos p3 = new Pagos(3L, "VISACARD", new Date(), new BigDecimal(20000), "7567567", Boolean.TRUE);
-		Pagos p4 = new Pagos(4L, "CHEKC", new Date(), new BigDecimal(10000), "0001234", Boolean.TRUE);
+		calendar.set(2024, Calendar.JANUARY , 10, 12, 00);
+		Pagos p1 = new Pagos(1L, "CASH", calendar.getTime(), new BigDecimal(80000), "SIN-COMPROBANTE", Boolean.TRUE);
+		calendar.set(2024, Calendar.JANUARY , 12, 15, 15);
+		Pagos p2 = new Pagos(2L, "MASTERCARD", calendar.getTime(), new BigDecimal(30000), "3948394", Boolean.FALSE);
+		calendar.set(2024, Calendar.JANUARY , 15, 16, 23);
+		Pagos p3 = new Pagos(3L, "VISACARD", calendar.getTime(), new BigDecimal(20000), "7567567", Boolean.TRUE);
+		calendar.set(2024, Calendar.JANUARY , 18, 8, 45);
+		Pagos p4 = new Pagos(4L, "CHEKC", calendar.getTime(), new BigDecimal(10000), "0001234", Boolean.TRUE);
 		
 		pagos.add(p1);
 		pagos.add(p2);
